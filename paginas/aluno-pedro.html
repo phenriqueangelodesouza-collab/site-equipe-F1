@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle Red Bull Racing | F1 Team</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rb-blue: #0011A8;
+            --rb-dark: #111219ff;
+            --rb-red: #DB0A40;
+            --rb-yellow: #FFD700;
+            --rb-navy: #060b2b;
+            --rb-cyan: #00d4ff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Titillium Web', sans-serif;
+            background: var(--rb-navy);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--rb-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--rb-red);
+            border-radius: 4px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 5%;
+            background: rgba(6, 11, 43, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.6rem 5%;
+            background: rgba(6, 11, 43, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--rb-red), var(--rb-yellow));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            background: var(--rb-blue);
+            border-radius: 50%;
+            border: 2px solid var(--rb-yellow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--rb-red), var(--rb-yellow));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(0, 17, 168, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(219, 10, 64, 0.2) 0%, transparent 50%),
+                linear-gradient(180deg, var(--rb-navy) 0%, var(--rb-dark) 100%);
+            z-index: 1;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 2;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--rb-cyan);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 8s infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1.5); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(219, 10, 64, 0.15);
+            border: 1px solid rgba(219, 10, 64, 0.4);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--rb-red);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--rb-cyan) 50%, var(--rb-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--rb-yellow);
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 0.3rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 24px;
+            height: 40px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--rb-red);
+            border-radius: 2px;
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes scrollDown {
+            0%, 100% { opacity: 1; top: 8px; }
+            50% { opacity: 0.3; top: 20px; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--rb-red);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--rb-red), var(--rb-yellow));
+            border-radius: 2px;
+        }
+
+        .section-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            line-height: 1.7;
+        }
+
+        /* History Timeline */
+        .history {
+            background: linear-gradient(180deg, var(--rb-dark) 0%, var(--rb-navy) 100%);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--rb-red), var(--rb-blue), var(--rb-yellow));
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+            transform: translateX(50px);
+        }
+
+        .timeline-item:nth-child(even).visible {
+            transform: translateX(0);
+        }
+
+        .timeline-content {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 420px;
+            position: relative;
+            margin: 0 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 17, 168, 0.2);
+            border-color: rgba(219, 10, 64, 0.3);
+        }
+
+        .timeline-year {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--rb-yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #fff;
+        }
+
+        .timeline-text {
+            color: rgba(255,255,255,0.65);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--rb-red);
+            border: 4px solid var(--rb-navy);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(219, 10, 64, 0.5);
+        }
+
+        /* Drivers Section */
+        .drivers {
+            background: var(--rb-navy);
+            position: relative;
+        }
+
+        .drivers::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0, 17, 168, 0.2) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .drivers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .driver-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .driver-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(219, 10, 64, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .driver-image {
+            height: 320px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .driver-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(6, 11, 43, 0.95) 100%);
+        }
+
+        .driver-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: rgba(255,255,255,0.1);
+            z-index: 2;
+        }
+
+        .driver-flag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 35px;
+            border-radius: 4px;
+            overflow: hidden;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .driver-info {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .driver-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-bottom: 0.3rem;
+            color: #fff;
+        }
+
+        .driver-role {
+            color: var(--rb-red);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .driver-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .driver-stat {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .driver-stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--rb-yellow);
+        }
+
+        .driver-stat-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.3rem;
+        }
+
+        .driver-bio {
+            margin-top: 1.5rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Stats / Achievements */
+        .achievements {
+            background: linear-gradient(135deg, var(--rb-dark) 0%, #0f1535 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievements::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(219, 10, 64, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--rb-red), var(--rb-yellow));
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(219, 10, 64, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff, var(--rb-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Car Section */
+        .car-section {
+            background: var(--rb-navy);
+            position: relative;
+        }
+
+        .car-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .car-visual {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .car-visual img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .car-visual:hover img {
+            transform: scale(1.05);
+        }
+
+        .car-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, rgba(0, 17, 168, 0.2), rgba(219, 10, 64, 0.1));
+            pointer-events: none;
+        }
+
+        .car-details h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+
+        .car-specs {
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .car-spec {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .car-spec:hover {
+            border-color: rgba(219, 10, 64, 0.3);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .car-spec-label {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .car-spec-value {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--rb-yellow);
+        }
+
+        .car-badge {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--rb-red), var(--rb-blue));
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            box-shadow: 0 10px 30px rgba(219, 10, 64, 0.3);
+        }
+
+        /* Team Section */
+        .team {
+            background: linear-gradient(180deg, var(--rb-navy) 0%, var(--rb-dark) 100%);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--rb-red);
+            box-shadow: 0 20px 40px rgba(0, 17, 168, 0.15);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--rb-blue), var(--rb-red));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #fff;
+            border: 3px solid rgba(255,255,255,0.1);
+        }
+
+        .team-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .team-role {
+            color: var(--rb-red);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #040817;
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-brand .logo-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .footer-brand .logo-icon::before {
+            width: 55%;
+            height: 55%;
+        }
+
+        .footer-text {
+            color: rgba(255,255,255,0.5);
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+
+        .footer-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            color: var(--rb-yellow);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--rb-red);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copy {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.85rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: var(--rb-red);
+            border-color: var(--rb-red);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+                padding-left: 60px;
+                padding-right: 0;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .drivers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .car-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .driver-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Racing Stripe Decoration */
+        .racing-stripe {
+            height: 4px;
+            background: linear-gradient(90deg, var(--rb-blue), var(--rb-red), var(--rb-yellow), var(--rb-red), var(--rb-blue));
+            background-size: 200% 100%;
+            animation: stripeMove 3s linear infinite;
+        }
+
+        @keyframes stripeMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Racing Stripe -->
+    <div class="racing-stripe" style="position: fixed; top: 0; width: 100%; z-index: 1001;"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                RED BULL RACING
+            </a>
+            <ul class="nav-links">
+                <li><a href="#historia">História</a></li>
+                <li><a href="#pilotos">Pilotos</a></li>
+                <li><a href="#conquistas">Conquistas</a></li>
+                <li><a href="#carro">RB22</a></li>
+                <li><a href="#equipe">Equipe</a></li>
+            </ul>
+        </div>
+        <br>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Oracle Red Bull Racing</div>
+            <h1>WE ARE<br>RED BULL</h1>
+            <p class="hero-subtitle">A equipe austríaca que revolucionou a Fórmula 1. Da garagem ao topo do pódio — velocidade, inovação e garra.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-number">6</span>
+                    <div class="hero-stat-label">Títulos de Construtores</div>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">8</span>
+                    <div class="hero-stat-label">Títulos de Pilotos</div>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">130+</span>
+                    <div class="hero-stat-label">Vitórias</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history" id="historia">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Nossa Trajetória</div>
+                <h2 class="section-title">HISTÓRIA</h2>
+                <p class="section-desc">De uma equipe de grid de trás a uma das maiores dinastias da Fórmula 1. A história da Red Bull Racing é de pura determinação.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2005</div>
+                        <div class="timeline-title">O Nascimento</div>
+                        <div class="timeline-text">A Red Bull GmbH adquire a Jaguar Racing por apenas US$ 1, com a promessa de investir US$ 400 milhões em três temporadas. Christian Horner assume como chefe de equipe.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2009</div>
+                        <div class="timeline-title">Primeira Vitória</div>
+                        <div class="timeline-text">Com o RB5 e motores Renault, Sebastian Vettel conquista a primeira pole e vitória da equipe no GP da China. A Red Bull termina vice-campeã.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2010-2013</div>
+                        <div class="timeline-title">Era Vettel — A Dinastia</div>
+                        <div class="timeline-text">Quatro títulos consecutivos de construtores e pilotos. Sebastian Vettel se torna o campeão mais jovem da história. A RB9 vence 9 corridas seguidas em 2013.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2019</div>
+                        <div class="timeline-title">Era Honda</div>
+                        <div class="timeline-text">Transição para motores Honda. Max Verstappen assume como piloto número 1 e conquista 4 vitórias. A parceria com a Honda reacende a esperança de títulos.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-title">O Campeonato de Verstappen</div>
+                        <div class="timeline-text">Max Verstappen conquista seu primeiro título mundial em Abu Dhabi, batendo Lewis Hamilton na última volta. Primeiro título de pilotos desde 2013.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022-2024</div>
+                        <div class="timeline-title">Dominância Absoluta</div>
+                        <div class="timeline-text">A RB18 e RB19 dominam a era dos ground effects. Verstappen conquista 3 títulos consecutivos. Em 2023, a equipe vence todas as corridas, exceto uma.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2025-2026</div>
+                        <div class="timeline-title">Nova Era</div>
+                        <div class="timeline-text">Christian Horner deixa a equipe após 20 anos. Laurent Mekies assume como CEO. Max Verstappen busca seu 5º título com Isack Hadjar como novo companheiro.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Drivers Section -->
+    <section class="drivers" id="pilotos">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Grid 2026</div>
+                <h2 class="section-title">PILOTOS</h2>
+                <p class="section-desc">A dupla que representa a Oracle Red Bull Racing na temporada 2026 da Fórmula 1.</p>
+            </div>
+
+            <div class="drivers-grid">
+                <!-- Max Verstappen -->
+                <div class="driver-card reveal">
+                    <div class="driver-image" style="background-image: url('https://images.unsplash.com/photo-1541447270888-83e8494f9c08?w=800&q=80');">
+                        <div class="driver-number">01</div>
+                        <div class="driver-flag" style="background: linear-gradient(180deg, #c8102e 33%, #fff 33%, #fff 66%, #21468b 66%);"></div>
+                    </div>
+                    <div class="driver-info">
+                        <div class="driver-name">MAX VERSTAPPEN</div>
+                        <div class="driver-role">Piloto #1 • Países Baixos</div>
+                        <div class="driver-stats">
+                            <div class="driver-stat">
+                                <div class="driver-stat-value">71</div>
+                                <div class="driver-stat-label">Vitórias</div>
+                            </div>
+                            <div class="driver-stat">
+                                <div class="driver-stat-value">4</div>
+                                <div class="driver-stat-label">Títulos</div>
+                            </div>
+                            <div class="driver-stat">
+                                <div class="driver-stat-value">48</div>
+                                <div class="driver-stat-label">Poles</div>
+                            </div>
+                        </div>
+                        <div class="driver-bio">
+                            O piloto número 1 da equipe e um dos maiores talentos da história da F1. Tetra-campeão mundial (2021-2024), Verstappen é conhecido por sua pilotagem agressiva, precisa e determinada. Em 2026, busca o 5º título mundial.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Isack Hadjar -->
+                <div class="driver-card reveal">
+                    <div class="driver-image" style="background-image: url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80');">
+                        <div class="driver-number">55</div>
+                        <div class="driver-flag" style="background: linear-gradient(90deg, #002395 33%, #fff 33%, #fff 66%, #ed2939 66%);"></div>
+                    </div>
+                    <div class="driver-info">
+                        <div class="driver-name">ISACK HADJAR</div>
+                        <div class="driver-role">Piloto #2 • França</div>
+                        <div class="driver-stats">
+                            <div class="driver-stat">
+                                <div class="driver-stat-value">0</div>
+                                <div class="driver-stat-label">Vitórias</div>
+                            </div>
+                            <div class="driver-stat">
+                                <div class="driver-stat-value">1</div>
+                                <div class="driver-stat-label">Pódios</div>
+                            </div>
+                            <div class="driver-stat">
+                                <div class="driver-stat-value">Rookie</div>
+                                <div class="driver-stat-label">Status</div>
+                            </div>
+                        </div>
+                        <div class="driver-bio">
+                            Jovem francês promovido da Visa Cash App Racing Bulls após uma temporada de estreia impressionante em 2025. Conquistou seu primeiro pódio em Zandvoort e agora tem a oportunidade de sua vida ao lado de Verstappen.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="achievements" id="conquistas">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Números</div>
+                <h2 class="section-title">CONQUISTAS</h2>
+                <p class="section-desc">Uma das equipes mais vitoriosas da história da Fórmula 1.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card reveal">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Títulos de Construtores</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon">👑</div>
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Títulos de Pilotos</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon">🏁</div>
+                    <div class="stat-number">130</div>
+                    <div class="stat-label">Vitórias em GPs</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-number">112</div>
+                    <div class="stat-label">Pole Positions</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon">🥇</div>
+                    <div class="stat-number">297</div>
+                    <div class="stat-label">Pódios</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-number">103</div>
+                    <div class="stat-label">Voltas Mais Rápidas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Car Section -->
+    <section class="car-section" id="carro">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Máquina</div>
+                <h2 class="section-title">RB22</h2>
+                <p class="section-desc">O carro de 2026 da Oracle Red Bull Racing, projetado para dominar as novas regulamentações.</p>
+            </div>
+
+            <div class="car-showcase reveal">
+                <div class="car-visual">
+                    <img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?w=800&q=80" alt="Red Bull F1 Car">
+                </div>
+                <div class="car-details">
+                    <h3>ESPECIFICAÇÕES TÉCNICAS</h3>
+                    <div class="car-specs">
+                        <div class="car-spec">
+                            <span class="car-spec-label">Chassis</span>
+                            <span class="car-spec-value">RB22</span>
+                        </div>
+                        <div class="car-spec">
+                            <span class="car-spec-label">Motor</span>
+                            <span class="car-spec-value">Ford RBPT</span>
+                        </div>
+                        <div class="car-spec">
+                            <span class="car-spec-label">Pneus</span>
+                            <span class="car-spec-value">Pirelli</span>
+                        </div>
+                        <div class="car-spec">
+                            <span class="car-spec-label">Transmissão</span>
+                            <span class="car-spec-value">8 Marchas + RM</span>
+                        </div>
+                        <div class="car-spec">
+                            <span class="car-spec-label">Peso Mínimo</span>
+                            <span class="car-spec-value">798 kg</span>
+                        </div>
+                        <div class="car-spec">
+                            <span class="car-spec-label">Base</span>
+                            <span class="car-spec-value">Milton Keynes, UK</span>
+                        </div>
+                    </div>
+                    <div class="car-badge">Oracle Red Bull Racing</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="equipe">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Estrutura</div>
+                <h2 class="section-title">EQUIPE</h2>
+                <p class="section-desc">Os profissionais que fazem a mágica acontecer nos bastidores.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card reveal">
+                    <div class="team-avatar">LM</div>
+                    <div class="team-name">Laurent Mekies</div>
+                    <div class="team-role">CEO / Chefe de Equipe</div>
+                    <div class="team-desc">Assume em 2025 após a saída de Christian Horner. Trás vasta experiência da Ferrari e Racing Bulls.</div>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar">PW</div>
+                    <div class="team-name">Pierre Waché</div>
+                    <div class="team-role">Diretor Técnico</div>
+                    <div class="team-desc">Responsável pelo desenvolvimento técnico dos carros desde a era de dominação da RB18 e RB19.</div>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar">HM</div>
+                    <div class="team-name">Helmut Marko</div>
+                    <div class="team-role">Consultor de Motorsport</div>
+                    <div class="team-desc">O olheiro que descobriu Vettel, Verstappen e dezenas de outros talentos do programa júnior.</div>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar">RB</div>
+                    <div class="team-name">Red Bull GmbH</div>
+                    <div class="team-role">Proprietária</div>
+                    <div class="team-desc">A gigante de bebidas energéticas austríaca que transformou uma equipe de grid em uma dinastia.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">
+                    <div class="logo-icon"></div>
+                    RED BULL RACING
+                </div>
+                <p class="footer-text">
+                    Oracle Red Bull Racing é uma equipe austríaca de Fórmula 1 baseada em Milton Keynes, Reino Unido. Uma das equipes mais bem-sucedidas da história da F1.
+                </p>
+            </div>
+            <div>
+                <div class="footer-title">Navegação</div>
+                <ul class="footer-links">
+                    <li><a href="#historia">História</a></li>
+                    <li><a href="#pilotos">Pilotos</a></li>
+                    <li><a href="#conquistas">Conquistas</a></li>
+                    <li><a href="#carro">Carro</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-title">Redes</div>
+                <ul class="footer-links">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter / X</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-title">Contato</div>
+                <ul class="footer-links">
+                    <li><a href="#">redbullracing.com</a></li>
+                    <li><a href="#">Milton Keynes, UK</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2026 Oracle Red Bull Racing. Todos os direitos reservados.</div>
+            <div class="footer-social">
+                <a href="#" class="social-link">IG</a>
+                <a href="#" class="social-link">X</a>
+                <a href="#" class="social-link">YT</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Counter animation for stats
+        const animateCounter = (el, target) => {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    el.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(current);
+                }
+            }, 30);
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    const target = parseInt(entry.target.textContent);
+                    if (!isNaN(target)) {
+                        animateCounter(entry.target, target);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(el => {
+            statsObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
