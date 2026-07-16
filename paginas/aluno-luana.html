@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferrari — Il Cavallino Rampante</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #C8102E;
+  --bg: #0C0C0C;
+  --bg2: #121212;
+  --line: rgba(255,255,255,0.07);
+  --text: #E8E4DF;
+  --muted: #6B6661;
+  --label: #9A9591;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.6rem 3rem;
+  mix-blend-mode: normal;
+}
+nav::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(12,12,12,0.9) 0%, transparent 100%);
+  backdrop-filter: blur(0px);
+  z-index: -1;
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 1.1rem;
+  letter-spacing: 0.35em; text-transform: uppercase; color: var(--text);
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-dot { width: 5px; height: 5px; background: var(--red); border-radius: 50%; }
+
+/* ── HERO ── */
+.hero {
+  height: 100vh; position: relative; display: flex;
+  flex-direction: column; justify-content: flex-end; padding: 5rem 3rem;
+  overflow: hidden;
+}
+.hero-img {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=1800&q=80') center/cover no-repeat;
+}
+.hero-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,12,12,1) 0%, rgba(12,12,12,0.4) 50%, rgba(12,12,12,0.2) 100%);
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-label {
+  font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 1.2rem;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(3.5rem, 10vw, 8rem);
+  line-height: 0.92; letter-spacing: -0.01em; color: var(--text);
+  margin-bottom: 2rem;
+}
+.hero-title em { font-style: italic; color: rgba(232,228,223,0.5); }
+.hero-meta {
+  display: flex; gap: 3rem; align-items: flex-end;
+}
+.hero-desc {
+  max-width: 360px; font-size: 0.82rem; line-height: 1.9;
+  color: var(--muted);
+}
+.hero-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem; font-weight: 300; color: rgba(200,16,46,0.15);
+  line-height: 1; letter-spacing: -0.03em;
+}
+
+/* ── SECTION BASE ── */
+.sec { padding: 7rem 3rem; }
+.sec-header { margin-bottom: 5rem; }
+.sec-tag {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 1.5rem;
+}
+.sec-tag::before { content: ''; width: 20px; height: 1px; background: var(--red); }
+.sec-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1.05; letter-spacing: -0.01em;
+}
+.sec-title em { font-style: italic; }
+.sec-sub {
+  font-size: 0.82rem; line-height: 1.9; color: var(--muted);
+  max-width: 480px; margin-top: 1.2rem;
+}
+
+/* ── HISTÓRIA ── */
+.historia { background: var(--bg); border-top: 1px solid var(--line); }
+
+.hist-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--line);
+}
+.hist-item {
+  background: var(--bg);
+  padding: 3rem;
+  display: grid; grid-template-columns: 90px 1fr; gap: 2rem;
+  transition: background 0.4s;
+}
+.hist-item:hover { background: var(--bg2); }
+.hist-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 2.2rem; color: var(--red);
+  line-height: 1; padding-top: 0.1rem;
+}
+.hist-body h3 {
+  font-size: 0.78rem; letter-spacing: 0.08em; font-weight: 400;
+  margin-bottom: 0.7rem; color: var(--text);
+}
+.hist-body p { font-size: 0.78rem; line-height: 1.8; color: var(--muted); }
+
+/* ── CARROS ── */
+.carros { background: var(--bg2); border-top: 1px solid var(--line); }
+
+.cars-scroll {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--line);
+}
+.car-item {
+  background: var(--bg2);
+  display: flex; flex-direction: column;
+  cursor: default; overflow: hidden;
+}
+.car-photo {
+  width: 100%; aspect-ratio: 4/3; overflow: hidden;
+  background: #1a1a1a;
+}
+.car-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(0.7) brightness(0.85);
+  transition: filter 0.6s ease, transform 0.6s ease;
+}
+.car-item:hover .car-photo img { filter: saturate(1) brightness(0.95); transform: scale(1.03); }
+.car-body { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
+.car-era-tag { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 0.6rem; }
+.car-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 1.7rem; line-height: 1; margin-bottom: 0.8rem;
+}
+.car-text { font-size: 0.76rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem; flex: 1; }
+.car-specs {
+  display: flex; gap: 2rem; padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+}
+.spec { display: flex; flex-direction: column; gap: 0.2rem; }
+.spec-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 300; line-height: 1;
+}
+.spec-key { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+/* ── NÚMEROS ── */
+.numeros {
+  background: var(--bg); border-top: 1px solid var(--line);
+  padding: 6rem 3rem;
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1px; background-color: var(--line);
+}
+.num-block {
+  background: var(--bg);
+  padding: 3.5rem 2.5rem;
+  display: flex; flex-direction: column; gap: 0.6rem;
+}
+.num-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 300;
+  color: var(--text); line-height: 1;
+}
+.num-val span { color: var(--red); }
+.num-key { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+/* ── PILOTOS ── */
+.pilotos { background: var(--bg2); border-top: 1px solid var(--line); }
+
+.pilots-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--line);
+}
+.pilot-card {
+  background: var(--bg2); overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.pilot-photo {
+  aspect-ratio: 3/4; overflow: hidden; background: #111;
+}
+.pilot-photo img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top;
+  filter: grayscale(0.4) brightness(0.75);
+  transition: filter 0.5s, transform 0.5s;
+}
+.pilot-card:hover .pilot-photo img { filter: grayscale(0.1) brightness(0.9); transform: scale(1.04); }
+.pilot-info { padding: 1.8rem; flex: 1; }
+.pilot-nat { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+.pilot-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 1.6rem; line-height: 1.1; margin-bottom: 0.8rem;
+}
+.pilot-bio { font-size: 0.75rem; line-height: 1.8; color: var(--muted); }
+.pilot-titles-row {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 1rem 1.8rem; border-top: 1px solid var(--line);
+}
+.pilot-badge {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; color: var(--red); line-height: 1;
+}
+.pilot-badge-label { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* ── TÉCNICOS ── */
+.tecnicos { background: var(--bg); border-top: 1px solid var(--line); }
+
+.tech-list { display: flex; flex-direction: column; }
+.tech-row {
+  display: grid; grid-template-columns: 280px 1fr 200px;
+  gap: 3rem; align-items: start;
+  padding: 3rem 0; border-bottom: 1px solid var(--line);
+  transition: background 0.3s;
+}
+.tech-row:first-child { border-top: 1px solid var(--line); }
+.tech-img-wrap { aspect-ratio: 4/3; overflow: hidden; background: #111; }
+.tech-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top;
+  filter: grayscale(0.5) brightness(0.7);
+  transition: filter 0.5s;
+}
+.tech-row:hover .tech-img-wrap img { filter: grayscale(0.1) brightness(0.85); }
+.tech-body { padding-top: 0.2rem; }
+.tech-role-tag { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 0.6rem; }
+.tech-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 2rem; line-height: 1; margin-bottom: 0.4rem;
+}
+.tech-period { font-size: 0.68rem; color: var(--muted); margin-bottom: 1rem; letter-spacing: 0.05em; }
+.tech-desc { font-size: 0.78rem; line-height: 1.85; color: var(--muted); }
+.tech-aside {
+  padding-top: 0.2rem; text-align: right;
+}
+.tech-legacy {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 1rem; line-height: 1.6; color: var(--muted);
+}
+
+/* ── CLOSING VISUAL ── */
+.closing {
+  height: 60vh; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.closing-img {
+  position: absolute; inset: 0;
+  background: url('https://www.cnet.com/a/img/resize/c8cde552cffbd9bc3e60127ce35851251fc515c8/hub/2021/07/08/e04abd45-4a19-49ba-972b-f2084f093d5d/2021-ferrari-sf90-stradale-36.jpg?auto=webp&width=1200') center/cover no-repeat;
+}
+.closing-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(12,12,12,0.65);
+}
+.closing-text {
+  position: relative; z-index: 1; text-align: center;
+}
+.closing-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+  line-height: 1.4; color: var(--text); max-width: 700px; margin: 0 auto;
+}
+.closing-attr {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--red); margin-top: 1.5rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg); border-top: 1px solid var(--line);
+  padding: 3rem; display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 1rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--text);
+}
+.footer-copy { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; }
+.footer-red { color: var(--red); }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1.2rem 1.5rem; }
+  .nav-links { display: none; }
+  .sec { padding: 5rem 1.5rem; }
+  .hist-grid, .cars-scroll, .pilots-grid { grid-template-columns: 1fr; }
+  .numeros { grid-template-columns: 1fr 1fr; }
+  .tech-row { grid-template-columns: 1fr; }
+  .tech-aside { display: none; }
+  .tech-img-wrap { max-width: 300px; }
+  footer { flex-direction: column; align-items: flex-start; }
+  .hero-meta { flex-direction: column; gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Ferrari</div>
+  <div class="nav-dot"></div>
+  <ul class="nav-links">
+    <li><a href="#historia">História</a></li>
+    <li><a href="#carros">Carros</a></li>
+    <li><a href="#pilotos">Pilotos</a></li>
+    <li><a href="#tecnicos">Técnicos</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <p class="hero-label">Maranello, 1939</p>
+    <h1 class="hero-title">Ferrari<br><em>Il Cavallino Rampante</em></h1>
+    <div class="hero-meta">
+      <p class="hero-desc">A obsessão de um homem com a velocidade transformou-se na mais icônica marca da história do automobilismo. Cada carro é um manifesto.</p>
+      <div class="hero-year">1939</div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTÓRIA -->
+<section class="sec historia" id="historia">
+  <div class="sec-header reveal">
+    <p class="sec-tag">Origens</p>
+    <h2 class="sec-title">Uma história forjada<br><em>em asfalto e paixão</em></h2>
+    <p class="sec-sub">Enzo Ferrari não queria construir carros de estrada. Queria vencer corridas. O resto é consequência de uma obsessão que nunca cedeu.</p>
+  </div>
+
+  <div class="hist-grid">
+    <div class="hist-item reveal">
+      <div class="hist-year">1939</div>
+      <div class="hist-body">
+        <h3>Auto Avio Costruzioni</h3>
+        <p>Enzo deixa a Alfa Romeo e funda a empresa em Modena. Um contrato o proíbe de usar o próprio nome por quatro anos — ele espera e planeja cada detalhe do que está por vir.</p>
+      </div>
+    </div>
+    <div class="hist-item reveal">
+      <div class="hist-year">1947</div>
+      <div class="hist-body">
+        <h3>O Primeiro Ferrari Real</h3>
+        <p>O 125 S nasce com motor V12 de 1.5L. Vence sua primeira corrida em Roma em maio daquele mesmo ano. O Cavallino Rampante — símbolo do herói de guerra Francesco Baracca — passa a adornar cada capô.</p>
+      </div>
+    </div>
+    <div class="hist-item reveal">
+      <div class="hist-year">1952</div>
+      <div class="hist-body">
+        <h3>Domínio na Fórmula 1</h3>
+        <p>Alberto Ascari vence o Campeonato Mundial com a Scuderia Ferrari — o primeiro de uma lista que chegaria a 15 títulos de pilotos e 16 de construtores ao longo das décadas.</p>
+      </div>
+    </div>
+    <div class="hist-item reveal">
+      <div class="hist-year">1969</div>
+      <div class="hist-body">
+        <h3>Parceria com a Fiat</h3>
+        <p>A Fiat adquire 50% da Ferrari. O capital permite expandir a produção de carros de estrada sem comprometer o DNA de corrida. Maranello permanece o coração pulsante da marca.</p>
+      </div>
+    </div>
+    <div class="hist-item reveal">
+      <div class="hist-year">2000</div>
+      <div class="hist-body">
+        <h3>A Era Schumacher</h3>
+        <p>Cinco títulos consecutivos de 2000 a 2004. Michael Schumacher e a Ferrari criam a sequência vitoriosa mais dominante na história da Fórmula 1. A Scuderia se torna imbatível.</p>
+      </div>
+    </div>
+    <div class="hist-item reveal">
+      <div class="hist-year">2015</div>
+      <div class="hist-body">
+        <h3>Ferrari na Bolsa de Valores</h3>
+        <p>A Ferrari abre capital na NYSE e na Borsa Italiana, tornando-se uma das marcas de luxo mais valiosas do planeta. A empresa de Enzo — nascida de paixão — vale dezenas de bilhões.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARROS -->
+<section class="sec carros" id="carros">
+  <div class="sec-header reveal">
+    <p class="sec-tag">Os Automóveis</p>
+    <h2 class="sec-title">Carros que definiram<br><em>o que é possível</em></h2>
+    <p class="sec-sub">De protótipos de corrida a GTs de estrada, cada Ferrari encapsula décadas de engenharia obsessiva com a perfeição.</p>
+  </div>
+
+  <div class="cars-scroll">
+
+    <div class="car-item reveal">
+      <div class="car-photo">
+        <img src="https://s2-autoesporte.glbimg.com/W7QeNlYe3OpZhmKoF3U39tBYGqg=/0x0:1862x1241/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_cf9d035bf26b4646b105bd958f32089d/internal_photos/bs/2024/H/c/BPmBv8QUAPm7Lpfw8aCw/ferrari-250-gto-3.jpg" alt="Ferrari 250 GTO" loading="lazy">
+      </div>
+      <div class="car-body">
+        <div class="car-era-tag">1962 — Gran Turismo</div>
+        <h3 class="car-name">250 GTO</h3>
+        <p class="car-text">O carro mais valioso do mundo. Apenas 39 unidades foram produzidas. Vencedor em Le Mans, o GTO é hoje um artefato cultural que ultrapassa $70 milhões em leilões. Alumínio, fibra de vidro e um V12 de 3.0L que canta a cada rotação.</p>
+        <div class="car-specs">
+          <div class="spec"><span class="spec-val">300</span><span class="spec-key">cv</span></div>
+          <div class="spec"><span class="spec-val">280</span><span class="spec-key">km/h</span></div>
+          <div class="spec"><span class="spec-val">39</span><span class="spec-key">unidades</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-item reveal">
+      <div class="car-photo">
+        <img src="https://quatrorodas.abril.com.br/wp-content/uploads/2017/09/qr-698-carro-ferrari-f40-02.gif?quality=70&w=1024&crop=1" alt="Ferrari F40" loading="lazy">
+      </div>
+      <div class="car-body">
+        <div class="car-era-tag">1987 — Supercar</div>
+        <h3 class="car-name">F40</h3>
+        <p class="car-text">O último carro aprovado pessoalmente por Enzo Ferrari. Sem eletrônica, sem assistências — apenas piloto e motor. Um turbo V8 de 478 cv que leva ao limite em 3,8 segundos até 100 km/h. Pureza absoluta em forma de fibra de carbono.</p>
+        <div class="car-specs">
+          <div class="spec"><span class="spec-val">478</span><span class="spec-key">cv</span></div>
+          <div class="spec"><span class="spec-val">324</span><span class="spec-key">km/h</span></div>
+          <div class="spec"><span class="spec-val">1.311</span><span class="spec-key">unidades</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-item reveal">
+      <div class="car-photo">
+        <img src="https://www.infomoney.com.br/wp-content/uploads/2019/06/laferrari.jpg?w=900&quality=70&strip=all" alt="Ferrari moderna" loading="lazy">
+      </div>
+      <div class="car-body">
+        <div class="car-era-tag">2013 — Halo Car</div>
+        <h3 class="car-name">LaFerrari</h3>
+        <p class="car-text">O primeiro Ferrari híbrido de produção. Motor V12 de 6.3L combinado com o sistema HY-KERS herdado da F1. 963 cv totais, carroceria em carbono esculpida para zero resistência. Apenas 499 unidades para uma lista de espera interminável.</p>
+        <div class="car-specs">
+          <div class="spec"><span class="spec-val">963</span><span class="spec-key">cv</span></div>
+          <div class="spec"><span class="spec-val">350+</span><span class="spec-key">km/h</span></div>
+          <div class="spec"><span class="spec-val">499</span><span class="spec-key">unidades</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-item reveal">
+      <div class="car-photo">
+        <img src="https://res.cloudinary.com/unix-center/image/upload/c_limit,dpr_3.0,f_auto,fl_progressive,g_center,h_580,q_75,w_906/fl7hxq9rczontkgsvvw0.jpg" alt="Ferrari vermelho estrada" loading="lazy">
+      </div>
+      <div class="car-body">
+        <div class="car-era-tag">2019 — Supercar Híbrido</div>
+        <h3 class="car-name">SF90 Stradale</h3>
+        <p class="car-text">O carro que leva o nome do 90° aniversário da Scuderia. V8 biturbo + três motores elétricos = 1.000 cv. O mais poderoso Ferrari de produção da história. 0–100 km/h em 2,5 segundos. Tecnologia de F1 transferida para a estrada com elegância completa.</p>
+        <div class="car-specs">
+          <div class="spec"><span class="spec-val">1.000</span><span class="spec-key">cv</span></div>
+          <div class="spec"><span class="spec-val">340</span><span class="spec-key">km/h</span></div>
+          <div class="spec"><span class="spec-val">2,5s</span><span class="spec-key">0–100</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-item reveal">
+      <div class="car-photo">
+        <img src="https://res.cloudinary.com/unix-center/image/upload/c_limit,dpr_3.0,f_auto,fl_progressive,g_center,h_580,q_75,w_906/doytd8nw257vjtptpz8a.jpg" alt="Ferrari Roma luxo" loading="lazy">
+      </div>
+      <div class="car-body">
+        <div class="car-era-tag">2020 — Gran Turismo</div>
+        <h3 class="car-name">Roma</h3>
+        <p class="car-text">O dolce vita reinterpretado. Linhas fluidas inspiradas nos GTs italianos dos anos 60, com biturbo V8 de 620 cv. O Roma não grita — murmura com uma elegância que apenas a Ferrari sabe combinar com 320 km/h de velocidade máxima.</p>
+        <div class="car-specs">
+          <div class="spec"><span class="spec-val">620</span><span class="spec-key">cv</span></div>
+          <div class="spec"><span class="spec-val">320</span><span class="spec-key">km/h</span></div>
+          <div class="spec"><span class="spec-val">3,4s</span><span class="spec-key">0–100</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-item reveal">
+      <div class="car-photo">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJdrh7XtDW_J_16W1aOvFqCy0b_hNg_Xuhzg&s" alt="Ferrari pista corrida" loading="lazy">
+      </div>
+      <div class="car-body">
+        <div class="car-era-tag">2023 — Fórmula 1</div>
+        <h3 class="car-name">SF-23</h3>
+        <p class="car-text">A arma atual da Scuderia no Campeonato Mundial. Motor V6 híbrido de 1.6L com unidade de energia elétrica — mais de 1.000 cv estimados. Desenvolvido em Maranello com centenas de horas de CFD e túnel de vento. A busca pelo título nunca parou.</p>
+        <div class="car-specs">
+          <div class="spec"><span class="spec-val">1.000+</span><span class="spec-key">cv est.</span></div>
+          <div class="spec"><span class="spec-val">360</span><span class="spec-key">km/h</span></div>
+          <div class="spec"><span class="spec-val">F1</span><span class="spec-key">2023</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<div class="numeros">
+  <div class="num-block reveal">
+    <div class="num-val">2<span>43</span></div>
+    <div class="num-key">Vitórias na Fórmula 1</div>
+  </div>
+  <div class="num-block reveal">
+    <div class="num-val"><span>16</span></div>
+    <div class="num-key">Títulos de Construtores</div>
+  </div>
+  <div class="num-block reveal">
+    <div class="num-val"><span>15</span></div>
+    <div class="num-key">Títulos de Pilotos</div>
+  </div>
+  <div class="num-block reveal">
+    <div class="num-val">75<span>+</span></div>
+    <div class="num-key">Anos de História</div>
+  </div>
+</div>
+
+<!-- PILOTOS -->
+<section class="sec pilotos" id="pilotos">
+  <div class="sec-header reveal">
+    <p class="sec-tag">Os Pilotos</p>
+    <h2 class="sec-title">Os homens que<br><em>tornaram a lenda real</em></h2>
+    <p class="sec-sub">A Ferrari não fabrica apenas carros — fabrica heróis. Estes são aqueles que colocaram o Cavallino Rampante no topo do mundo.</p>
+  </div>
+
+  <div class="pilots-grid">
+
+    <div class="pilot-card reveal">
+      <div class="pilot-photo">
+        <img src="https://www.guiadoscuriosos.com.br/wp-content/uploads/2019/04/1-620-440x440.jpg" alt="Michael Schumacher" loading="lazy">
+      </div>
+      <div class="pilot-info">
+        <p class="pilot-nat">Alemanha · 1996–2006</p>
+        <h3 class="pilot-name">Michael Schumacher</h3>
+        <p class="pilot-bio">Chegou a uma Ferrari em ruínas e a reconstruiu tijolo por tijolo. De 2000 a 2004, foi imbatível — cinco títulos consecutivos, 72 vitórias com a Scuderia. O maior piloto da história para uma geração inteira de fãs.</p>
+      </div>
+      <div class="pilot-titles-row">
+        <div class="pilot-badge">5×</div>
+        <div class="pilot-badge-label">Campeão Mundial pela Ferrari</div>
+      </div>
+    </div>
+
+    <div class="pilot-card reveal">
+      <div class="pilot-photo">
+        <img src="https://s2-ge.glbimg.com/nWepe8vOTehD4nQ_V0xi-0f7mHU=/0x0:3965x2643/1158x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2018/8/g/mQSfevQPuwEHcd6CNkNw/gettyimages-687729810.jpg" alt="Niki Lauda" loading="lazy">
+      </div>
+      <div class="pilot-info">
+        <p class="pilot-nat">Áustria · 1974–1977</p>
+        <h3 class="pilot-name">Niki Lauda</h3>
+        <p class="pilot-bio">Sobreviveu a um incêndio devastador no Nürburgring em 1976 e retornou às pistas 42 dias depois. Calculista, frio, brilhante. Dois títulos pela Ferrari e uma das histórias de coragem mais extraordinárias do esporte.</p>
+      </div>
+      <div class="pilot-titles-row">
+        <div class="pilot-badge">2×</div>
+        <div class="pilot-badge-label">Campeão Mundial pela Ferrari</div>
+      </div>
+    </div>
+
+    <div class="pilot-card reveal">
+      <div class="pilot-photo">
+        <img src="https://www.howacarworks.com/images/70/gillles-villeneuve.jpg" alt="Gilles Villeneuve" loading="lazy">
+      </div>
+      <div class="pilot-info">
+        <p class="pilot-nat">Canadá · 1977–1982</p>
+        <h3 class="pilot-name">Gilles Villeneuve</h3>
+        <p class="pilot-bio">Talvez o piloto mais amado pelos tifosi. Nunca foi campeão, mas seu estilo de pilotagem era de outro planeta. Enzo o chamou de "o maior que já dirigi para mim". Morto em qualificação em 1982, permanece imortal.</p>
+      </div>
+      <div class="pilot-titles-row">
+        <div class="pilot-badge">6</div>
+        <div class="pilot-badge-label">Vitórias pela Ferrari</div>
+      </div>
+    </div>
+
+    <div class="pilot-card reveal">
+      <div class="pilot-photo">
+        <img src="https://ruoteclassiche.quattroruote.it//wp-content/uploads/nggalleries/70-anni-morte-alberto-ascari//RCL050528051.jpg" alt="Alberto Ascari" loading="lazy">
+      </div>
+      <div class="pilot-info">
+        <p class="pilot-nat">Itália · 1950–1955</p>
+        <h3 class="pilot-name">Alberto Ascari</h3>
+        <p class="pilot-bio">O primeiro grande campeão da Ferrari. Em 1952 e 1953 foi imbatível, vencendo 9 corridas consecutivas de F1 — feito que permanece inigualado. Filho de piloto, destinado à velocidade desde o nascimento.</p>
+      </div>
+      <div class="pilot-titles-row">
+        <div class="pilot-badge">2×</div>
+        <div class="pilot-badge-label">Campeão Mundial pela Ferrari</div>
+      </div>
+    </div>
+
+    <div class="pilot-card reveal">
+      <div class="pilot-photo">
+        <img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/14/12/sebastian-vettel.jpg" alt="Sebastian Vettel" loading="lazy">
+      </div>
+      <div class="pilot-info">
+        <p class="pilot-nat">Alemanha · 2015–2020</p>
+        <h3 class="pilot-name">Sebastian Vettel</h3>
+        <p class="pilot-bio">Quadricampeão pela Red Bull, chegou à Ferrari com o sonho de repetir Schumacher. Seis temporadas, 14 vitórias, batalhas épicas com Lewis Hamilton. O título fugiu — mas o amor dos tifosi nunca.</p>
+      </div>
+      <div class="pilot-titles-row">
+        <div class="pilot-badge">14</div>
+        <div class="pilot-badge-label">Vitórias pela Ferrari</div>
+      </div>
+    </div>
+
+    <div class="pilot-card reveal">
+      <div class="pilot-photo">
+        <img src="https://img2.51gt3.com/rac/racer/202503/fe2de9975d864e38acfd9933164954a6.png?x-oss-process=style/_nhd_en" alt="Charles Leclerc" loading="lazy">
+      </div>
+      <div class="pilot-info">
+        <p class="pilot-nat">Mônaco · 2019–Atual</p>
+        <h3 class="pilot-name">Charles Leclerc</h3>
+        <p class="pilot-bio">A nova esperança de Maranello. O monegasco carrega o peso de trazer o título que a Ferrari não conquista desde 2008. Veloz, consistente, apaixonado — Leclerc nasceu para conduzir o Cavallino Rampante ao topo.</p>
+      </div>
+      <div class="pilot-titles-row">
+        <div class="pilot-badge">→</div>
+        <div class="pilot-badge-label">O Futuro é Vermelho</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TÉCNICOS -->
+<section class="sec tecnicos" id="tecnicos">
+  <div class="sec-header reveal">
+    <p class="sec-tag">Os Arquitetos</p>
+    <h2 class="sec-title">Mentes que moldaram<br><em>cada vitória</em></h2>
+    <p class="sec-sub">Por trás de cada vitória há engenheiros, designers e estrategistas que transformaram física em arte. Os arquitetos invisíveis da lenda.</p>
+  </div>
+
+  <div class="tech-list">
+
+    <div class="tech-row reveal">
+      <div class="tech-img-wrap">
+        <img src="https://i.pinimg.com/1200x/55/61/e0/5561e034876d195bb49f5263de306645.jpg" alt="Enzo Ferrari" loading="lazy">
+      </div>
+      <div class="tech-body">
+        <div class="tech-role-tag">Fundador</div>
+        <h3 class="tech-name">Enzo Ferrari</h3>
+        <p class="tech-period">1939 — 1988 · Maranello, Itália</p>
+        <p class="tech-desc">O Commendatore. Piloto frustrado que descobriu seu verdadeiro gênio como construtor de carros e gestor de talento. Exigente até a crueldade, visionário além de seu tempo. Enzo Ferrari não apenas construiu carros — construiu uma religião. Sua filosofia simples: carros de corrida primeiro, carros de estrada depois.</p>
+      </div>
+      <div class="tech-aside">
+        <p class="tech-legacy">"O segundo lugar é o primeiro dos perdedores."</p>
+      </div>
+    </div>
+
+    <div class="tech-row reveal">
+      <div class="tech-img-wrap">
+        <img src="https://e0.365dm.com/17/04/2048x1152/skysports-ross-brawn-chinese-grand-prix-liberty-media_3929285.jpg?20170412083604" alt="Ross Brawn" loading="lazy">
+      </div>
+      <div class="tech-body">
+        <div class="tech-role-tag">Diretor Técnico F1</div>
+        <h3 class="tech-name">Ross Brawn</h3>
+        <p class="tech-period">1997 — 2006 · Oxford, Reino Unido</p>
+        <p class="tech-desc">O arquiteto técnico da era Schumacher. Brawn projetou a estratégia e os carros que conquistaram seis títulos consecutivos para a Ferrari. Seu domínio de aerodinâmica, mecânica e — principalmente — estratégia de corrida criou uma máquina de vitórias sem paralelo na era moderna da F1.</p>
+      </div>
+      <div class="tech-aside">
+        <p class="tech-legacy">6 títulos consecutivos. Imbatível.</p>
+      </div>
+    </div>
+
+    <div class="tech-row reveal">
+      <div class="tech-img-wrap">
+        <img src="https://www.autoetecnica.com.br/wp-content/uploads/2022/11/image-14.png" alt="Mauro Forghieri" loading="lazy">
+      </div>
+      <div class="tech-body">
+        <div class="tech-role-tag">Engenheiro-Chefe de Motor F1</div>
+        <h3 class="tech-name">Mauro Forghieri</h3>
+        <p class="tech-period">1959 — 1987 · Modena, Itália</p>
+        <p class="tech-desc">O gênio que projetou todos os motores Ferrari de F1 por quase três décadas. Criou o lendário motor flat-12 que dominou a F1 nos anos 70 com Lauda e Scheckter. Forghieri era a extensão técnica do próprio Enzo — feroz, intuitivo e capaz de soluções que desafiavam a física convencional.</p>
+      </div>
+      <div class="tech-aside">
+        <p class="tech-legacy">O maior engenheiro de motores da história da Ferrari.</p>
+      </div>
+    </div>
+
+    <div class="tech-row reveal">
+      <div class="tech-img-wrap">
+        <img src="https://quatrorodas.abril.com.br/wp-content/uploads/2022/11/Pininfarina-Battista-11-e1669308269423.jpg?quality=70&strip=info&w=1280&h=720&crop=1" alt="Pininfarina" loading="lazy">
+      </div>
+      <div class="tech-body">
+        <div class="tech-role-tag">Design & Carroceria</div>
+        <h3 class="tech-name">Pininfarina</h3>
+        <p class="tech-period">1952 — 2020 · Torino, Itália</p>
+        <p class="tech-desc">A parceria mais duradoura do design automobilístico. Por quase 70 anos, o estúdio Pininfarina desenhou a alma visual dos Ferraris de estrada — do 250 GT California ao Enzo Ferrari. Uma aliança entre duas visões de beleza que tornou cada Ferrari instantaneamente reconhecível a qualquer distância.</p>
+      </div>
+      <div class="tech-aside">
+        <p class="tech-legacy">70 anos de beleza italiana pura.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="closing-img"></div>
+  <div class="closing-text reveal">
+    <p class="closing-quote">Quando você vive para a velocidade, não existe linha de chegada — apenas a próxima curva.</p>
+    <p class="closing-attr">Enzo Ferrari · 1898–1988</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <p class="footer-name">Ferrari S.p.A.</p>
+    <p class="footer-copy" style="margin-top:0.4rem">Via Abetone Inferiore, 4 · 41053 Maranello, Itália · <span class="footer-red">ferrari.com</span></p>
+  </div>
+  <p class="footer-copy">Il Cavallino Rampante · Maranello 1939</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), 80);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Stagger grids
+document.querySelectorAll('.hist-grid .hist-item, .cars-scroll .car-item, .pilots-grid .pilot-card').forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 3) * 0.1}s`;
+});
+</script>
+</body>
+</html>
