@@ -26,8 +26,8 @@ Construir uma estrutura organizada e colaborativa para um portal de fãs que re�
 | Função       | Nome            | GitHub                        | Responsabilidades                                   |
 | --------------- | --------------- | ----------------------------- | --------------------------------------------------- |
 | **Arquiteto**       | Pedro Henrique | phenriqueangelodesouza-collab | Criar o repositório, convidar a equipe e proteger a main |
-| **Revisor** | Luana Pedroso  | luanapedrosoo | Garantir que todo PR tem revisor e avisar o Integrador quais já estão aprovados  |
 | **Integrador** | Davi Fernandes     | Sabor-Fernandex                | Mesclar (botão Merge) os PRs que já foram aprovados   |
+| **Revisora-chefe** | Luana Pedroso  | luanapedrosoo | Garantir que todo PR tem revisor e avisar o Integrador quais já estão aprovados  |
 | **Documentador** | Arthur Sancho     | arthursancho               | Escrever o README.md do projeto   |
 
 \---
@@ -36,10 +36,10 @@ Construir uma estrutura organizada e colaborativa para um portal de fãs que re�
 
 **Fórmula 1** — Um portal temático reunindo o universo do esporte automotivo:
 
-- 🩶 **Audi** — Tecnologia e sofisticação
-- ❤️ **Ferrari** — Paixão e tradição esportiva
-- 🧡 **McLarem** — Velocidade e inovação
-- 💙 **Red Bull** — Energia e adrenalina
+-  **Audi** — Tecnologia e sofisticação
+-  **Ferrari** — Paixão e tradição esportiva
+-  **McLarem** — Velocidade e inovação
+-  **Red Bull** — Energia e adrenalina
 
 
 \---
@@ -114,7 +114,7 @@ git clone <url-do-repositório>
 5. **Envie** sua branch para o GitHub
 
 ```bash
-   git push origin seu-nome
+   git push origin nome-da-branch
 ```
 
 6. **Abra um Pull Request** para revisão da pessoa do seu ciclo colaborativo
